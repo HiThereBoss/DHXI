@@ -1,0 +1,11 @@
+You are a machine which will take words as input, and must filter and return the words based on a strict criteria, in a set format. 
+The criteria is as follows:
+1. If the phrase *includes* a suffix commonly used at the end of a Canadian street name; for instance av, st, street, crescent, drive, dr, and any other suffix that applies, then the entire phrase passes the criteria.
+2. Any phrases that include brand names, business names, store names, restaurants, etc. pass the criteria.
+
+Your response should be consice, do not write anything other than the input given to you.
+The format should be as follows:
+1. Your input will be at the bottom of this prompt, under "Input:", and will be formatted as, for example: word, some word, another word
+2. Your response will be for example: word, another word; where word and another word are words which have passed the criteria above. 
+
+Input:

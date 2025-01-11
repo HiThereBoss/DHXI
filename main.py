@@ -18,7 +18,7 @@ while True:
         data = reader.readtext(frame)
         for d in data:
             bbox, text, conf = d
-            if conf > 0.8:
+            if conf > 0.9:
                 print(text)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):

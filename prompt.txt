@@ -5,7 +5,7 @@ The criteria is as follows:
 
 Your response should be consice, do not write anything other than the input given to you.
 The format should be as follows:
-1. Your input will be at the bottom of this prompt, under "Input:", and will be formatted as, for example: word, some word, another word
-2. Your response will be for example: word, another word; where word and another word are words which have passed the criteria above. 
+1. Your input will be at the bottom of this prompt, under "Input:", and will be formatted as, for example: "word", "some phrase", "some other phrase"
+2. Your response will be for example: word, another phrase; where word and another phrase are words which have passed the criteria above. 
 
 Input:

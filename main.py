@@ -63,6 +63,7 @@ def prompt_gemini(shutdown):
 
             phrases = text.split(" | ")
             for phrase in phrases:
+                phrase = phrase.replace("\n", "")
                 braille = text_to_braille(phrase)
                 print("From:", phrase, "to:", braille)
 
@@ -78,11 +79,12 @@ def camera_stream_process(shutdown):
         if not ret:
             shutdown[0] = True
             break
-        alpha = 1.5
-        beta = 0
-
+        
         frame = cv2. cvtColor(frame, cv2. COLOR_BGR2GRAY)
-        frame = cv2.convertScaleAbs(frame, alpha=alpha, beta=beta)
+
+        enhancer = ImageEnhance.Contrast(Image.fromarray(frame))
+        frame = enhancer.enhance(1.5)
+        frame = np.array(frame)
 
         cv2.imshow("Camera", frame)
 

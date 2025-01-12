@@ -4,10 +4,11 @@ The criteria is as follows:
 2. Suffixes on their own do not pass the criteria, it should resemble an entire street address.
 3. Any phrases that include brand names, business names, store names, restaurants, etc. pass the criteria.
 4. Anything that resembles a feasible street sign passes the criteria, such as stop, pedestrian walkway, and etc.
+5. On a special note, if the phrase seems to include a typo, such as "1280 main st hest", where "hest" would most probably have meant to be "west", you are allowed to fix the typo in your final output.
 
-Your response should be consice, do not write anything other than the input given to you.
+Your response should be consice, do not write anything other than the output you have processed from the input based on the criteria.
 The format should be as follows:
-1. Your input will be at the bottom of this prompt, under "Input:", and will be formatted as, for example: "word", "some phrase", "some other phrase"
-2. Your response will be for example: word | another phrase | some other phrase; where word, another phrase, and some other phrase are words which have passed the criteria above. It is important that you separate each phrase with a "|".
+1. Your input will be at the bottom of this prompt, under "Input:", and will be formatted as, for example: "word", "some phrase", "some other phrase", where each are individual phrases.
+2. Your response will be for example: word | another phrase; where word and another phrase are *phrases which have passed the criteria* above. It is important that you separate each phrase with a "|".
 
 Input:

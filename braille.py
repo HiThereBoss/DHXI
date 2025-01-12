@@ -1,3 +1,4 @@
+# import basemodel as text 
 
 def text_to_braille(text):
     # Braille Unicode mappings
@@ -51,8 +52,10 @@ def text_to_braille(text):
 
     return braille_text
 
-word = "123 sesame street"
-braille_equiv = print(text_to_braille(word))
+
+
+
+
 
   
 

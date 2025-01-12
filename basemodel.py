@@ -1,7 +1,8 @@
 import cv2
 import easyocr
 from braille import text_to_braille
-reader = easyocr.Reader(['en'], gpu=True)
+
+reader = easyocr.Reader(['en'])
 
 camera = cv2.VideoCapture(0)
 
@@ -12,6 +13,13 @@ while True:
     ret, frame = camera.read()
     if not ret:
         break
+
+
+    alpha = 100
+    beta = 0
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    contrast_frame = cv2.convertScaleAbs(frame, alpha=alpha, beta = beta)
+    
 
     cv2.imshow("Camera", frame)
 
@@ -31,3 +39,5 @@ while True:
 
 camera.release()
 cv2.destroyAllWindows()
+
+

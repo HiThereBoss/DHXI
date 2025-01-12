@@ -3,6 +3,7 @@ from time import sleep
 import cv2
 import easyocr
 import google.generativeai as genai
+from difflib import SequenceMatcher
 
 shutdown = [False]
 
@@ -16,34 +17,40 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 reader = easyocr.Reader(['en'], gpu=True)
 camera = cv2.VideoCapture(0)
 
+def string_similarity(string1, string2):
+    matcher = SequenceMatcher(None, string1, string2)
+    return matcher.ratio()  # Convert to percentage
+
+# def fix_data():
+#     global curr_phrases
+#     data = list(dict.fromkeys(curr_phrases))
+
+#     temp_data = data.copy()
+#     for i in range(len(data)-1):
+#         phrase = data[i]
+#         for j in range(i+1, len(data)):
+#             other_phrase = data[j]
+#             if string_similarity(phrase, other_phrase) > 0.9:
+#                 if len(phrase) > len(other_phrase):
+#                     temp_data.remove(other_phrase)
+#                 else:
+#                     temp_data.remove(phrase)
+#     curr_phrases = temp_data
+
 def decide(data):
     bbox, text, conf = data
 
     # Confidence
     if conf > 0.9:
         text = text.lower()
-        
-        words = text.split(' ')
-
-        replaced = False
-        for i in range(len(curr_phrases)):
-            phrase = curr_phrases[i]
-
-            count = 0
-            old_words = phrase.split(' ')
-
-            for old_word in old_words:
-                if old_word in words:
-                    count += 1
+        print("Read:", text)
+        if text not in curr_phrases:
+            for phrase in curr_phrases:
+                if string_similarity(phrase, text) > 0.6:
+                    curr_phrases.remove(phrase)
             
-            if count / len(old_words) > 0.5:
-                replaced = True
-                curr_phrases.pop(i)
-                curr_phrases.append(text)
-        
-        if not replaced:
-            if text not in curr_phrases:
-                curr_phrases.append(text)
+            
+            curr_phrases.append(text)
             
                 
 
@@ -85,6 +92,7 @@ def camera_stream_process(shutdown):
             for d in data:
                 decide(d)
             
+            # fix_data()
             print("Current phrases:", curr_phrases)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):

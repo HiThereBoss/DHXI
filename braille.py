@@ -9,7 +9,7 @@ def text_to_braille(text):
         'm': '\u280d', 'n': '\u281d', 'o': '\u2815', 'p': '\u280f',
         'q': '\u281f', 'r': '\u2817', 's': '\u280e', 't': '\u281e',
         'u': '\u2825', 'v': '\u2827', 'w': '\u283a', 'x': '\u282d',
-        'y': '\u283d', 'z': '\u2835', ' ': ' ', '#': '\u283c'  # braille number sign 
+        'y': '\u283d', 'z': '\u2835', ' ': ' ', '#': '\u283c',  # braille number sign 
     }
 
 
@@ -41,7 +41,7 @@ def text_to_braille(text):
             braille_text.append(braille_map[char]) #finds equivalent for letter
 
         else:
-            braille_text.append(braille_map.get(char, '?'))
+            braille_text.append(braille_map.get(char, ''))
           
 
     # join the list into a single string

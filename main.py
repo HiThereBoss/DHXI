@@ -3,9 +3,10 @@ from time import sleep
 import cv2
 import easyocr
 import google.generativeai as genai
-from PIL import Image, ImageEnhance
 import numpy as np
+from braille import text_to_braille
 from difflib import SequenceMatcher
+from PIL import Image, ImageEnhance
 
 shutdown = [False]
 
@@ -32,7 +33,7 @@ def decide(data):
     # Confidence
     if conf > 0.9:
         text = text.lower()
-        print("Read:", text)
+
         if text not in get_phrases(current_data):
             current_data.append((bbox, text, conf))
             
@@ -55,9 +56,18 @@ def prompt_gemini(shutdown):
 
             print("Words read:", text)
             response = model.generate_content(prompt)
-            phrases.clear()
+            text = response.text
+            current_data.clear()
 
-            print("Words output:", response.text)
+            print("Words output:", text)
+
+            phrases = text.split(" | ")
+            for phrase in phrases:
+                braille = text_to_braille(phrase)
+                print("From:", phrase, "to:", braille)
+
+            
+
 
         sleep(delay)
 
@@ -68,23 +78,19 @@ def camera_stream_process(shutdown):
         if not ret:
             shutdown[0] = True
             break
+        alpha = 1.5
+        beta = 0
+
+        frame = cv2. cvtColor(frame, cv2. COLOR_BGR2GRAY)
+        frame = cv2.convertScaleAbs(frame, alpha=alpha, beta=beta)
 
         cv2.imshow("Camera", frame)
 
         if count % 60 == 0:
-
-            new_frame = cv2. cvtColor(frame, cv2. COLOR_BGR2GRAY)
-
-            enhancer = ImageEnhance.Contrast(Image.fromarray(frame))
-            new_frame = enhancer.enhance(1.5)
-            new_frame = np.array(new_frame)
-
-            data = reader.readtext(new_frame)
+            data = reader.readtext(frame)
 
             for d in data:
                 decide(d)
-            
-            print("Current phrases:", get_phrases(current_data))
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             shutdown[0] = True

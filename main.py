@@ -24,7 +24,7 @@ shutdown = [False]
 current_data = []
 
 # Delay for prompt generation
-delay = 10
+delay = 5
 
 # Google API
 genai.configure(api_key="AIzaSyBxe8-1uCdbharfPs-o8f0b0yKMX03i1MA")

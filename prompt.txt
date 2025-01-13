@@ -5,6 +5,7 @@ The criteria is as follows:
 3. Any phrases that include brand names, business names, store names, restaurants, etc. pass the criteria.
 4. Anything that resembles a feasible street sign passes the criteria, such as stop, pedestrian walkway, and etc.
 5. On a special note, if the phrase seems to include a typo, such as "1280 main st hest", where "hest" would most probably have meant to be "west", you are allowed to fix the typo in your final output.
+6. If no words pass the criteria, simply dont say anything in your response.
 
 Your response should be consice, do not write anything other than the output you have processed from the input based on the criteria.
 The format should be as follows:

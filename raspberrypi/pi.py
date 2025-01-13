@@ -19,8 +19,7 @@ client.setblocking(False)
 
 character_buffer = []
 
-character_delay = 0.1
-character_duration = 0.1
+character_delay = 0.5
 servo_pins= [19, 18, 12, 13]
 LED_PINS = [17, 27]
 
@@ -82,15 +81,17 @@ def process_characters():
                 if state:
                     if pin_number in LED_PINS:
                         GPIO.output(pin_number, GPIO.HIGH)
+                        sleep(character_delay)
                     else:
-                        set_angle(servos[pin_number], 90)
+                        if pin_number == 13 or pin_number == 18:
+                            set_angle(servos[pin_number], 270)
+                        else:
+                            set_angle(servos[pin_number], 90)
             character_buffer.remove(char_data)
-
-        # 
+            reset()
         sleep(character_delay)
-        reset()
         shouldProcess = True
-
+ 
 def startBackground():
     frame_count = 0
     while True:
